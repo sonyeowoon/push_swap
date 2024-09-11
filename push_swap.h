@@ -48,6 +48,7 @@ int		get_min(t_node *lst);
 int		get_max(t_node *lst);
 int		find_median(t_node *lst, int flg, int min, int max);
 void    find_pivot(t_node **a, int pivot[4]);
+void    get_topbot(t_node *b, int i, int pivot[4], int *top, int *bot);
 // int		find_min_node(t_node *lst);
 // void	min_to_top(t_node **lst, int size, int *max_idx, int *max_top);
 // int		find_max_node(t_node *lst);

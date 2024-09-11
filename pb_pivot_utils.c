@@ -7,16 +7,32 @@ void    find_pivot(t_node **a, int pivot[4])
     pivot[0] = find_median(*a, 1, pivot[2], pivot[1]);
     pivot[2] = find_median(*a, 1, pivot[2], pivot[0]);
     pivot[3] = find_median(*a, 1, pivot[0], pivot[1]);
-    pivot[0] = pivot[2];
+    pivot[0] = find_median(*a, 1, pivot[2], pivot[0]);
     pivot[2] = pivot[1];
     pivot[1] = pivot[3];
     pivot[3] = get_max(*a);
     pivot[3] = find_median(*a, 1, pivot[2], pivot[3]);
     pivot[2] = find_median(*a, 1, pivot[2], pivot[3]);
-    pivot[3] = find_median(*a, 1, pivot[3], get_max(*a));
+    pivot[3] = find_median(pivot[3], find_median(*a, 1, pivot[3], get_max(*a)));
 }
 
-int get_moveidx(t_node *a, int pivot[4], int quantile_top[5], int a_size, int b_size)
+int cnt_b(t_node *b, int an, int r, int cnt, int pivot[4])
+{
+    int i;
+    int top;
+    int bot;
+
+    i = 0;
+    while (i < 4)
+    {
+        if (an <= pivot[i])
+            break;
+        i++;
+    }
+    get_topbot(b, i, pivot, &top, &bot);
+}
+
+int get_moveidx(t_node *a, t_node *b, int pivot[4], int a_size, int b_size)
 {
     int idx;
     int i;
@@ -31,13 +47,7 @@ int get_moveidx(t_node *a, int pivot[4], int quantile_top[5], int a_size, int b_
         r = 1;
         if (cnt > a_size - cnt)
             (r = -1), (cnt = a_size - cnt);
-        if (a->n <= pivot[0])
-        {
-            if (quantile_top[0] <= quantile_top[4] && quantile_top[0] != 0)
-                {
-                }
-            else if ()
-        }
+        cnt += cnt_b(b, a->n, r, cnt, pivot);
         if (cnt < min_cnt)
         {
             min_cnt = cnt;
@@ -51,21 +61,13 @@ int get_moveidx(t_node *a, int pivot[4], int quantile_top[5], int a_size, int b_
 
 void    divide_pivot(t_node **a, t_node**b, int pivot[4])
 {
-    int quantile_top[5];
-    int i;
     int a_size;
     int b_size;
 
-    i = 0;
-    while (i < 5)
-    {
-        quantile_top[i] = 0;
-        i++;
-    }
     a_size = ft_lstsize(*a);
     b_size = 0;
     while (a_size > 3)
     {
-        get_moveidx(*a, pivot, quantile_top, a_size, b_size);
+        get_moveidx(*a, *b, pivot, a_size, b_size);
     }
 }
