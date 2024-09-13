@@ -6,7 +6,7 @@
 /*   By: sangseo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 04:12:05 by sangseo           #+#    #+#             */
-/*   Updated: 2024/08/14 18:47:02 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/09/13 19:24:55 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ static void	mini_sort(t_node **a, int a_size)
 
 static void	pb_pivot(t_node **a, t_node **b)
 {
-    int pivot[4];
+	int	pivot[4];
 
-    find_pivot(a, pivot);
+	find_pivot(a, pivot);
 	divide_pivot(a, b, pivot);
 }
 
@@ -140,7 +140,7 @@ void	ft_sorting(t_node *a, t_node *b)
 		mini_sort(&a, a_size);
 	pa_all(&a, &b, &a_size);
 	// min_to_top(&a, ft_lstsize(a));
-	
+
 	ft_printf("----------");
 	ft_printf("A stack\n");
 	while (a)

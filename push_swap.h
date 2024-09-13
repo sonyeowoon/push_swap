@@ -6,7 +6,7 @@
 /*   By: sangseo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:18:17 by sangseo           #+#    #+#             */
-/*   Updated: 2024/08/14 18:46:31 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/09/13 19:31:03 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int		chk_ascending(t_node *lst);
 int		get_min(t_node *lst);
 int		get_max(t_node *lst);
 int		find_median(t_node *lst, int flg, int min, int max);
-void    find_pivot(t_node **a, int pivot[4]);
-void    get_topbot(t_node *b, int i, int pivot[4], int *top, int *bot);
-void    divide_pivot(t_node **a, t_node**b, int pivot[4]);
+void	find_pivot(t_node **a, int pivot[4]);
+//void	get_topbot(t_node *b, int i, int pivot[4], int *top, int *bot);
+void	divide_pivot(t_node **a, t_node**b, int pivot[4]);
 int		find_min_node(t_node *lst);
 void	min_to_top(t_node **lst, int size);
 //void	min_to_top(t_node **lst, int size, int *max_idx, int *max_top);
