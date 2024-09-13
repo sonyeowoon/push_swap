@@ -15,25 +15,25 @@
 int	chk_dupnsort(t_node *a)
 {
 	int		flg;
-	t_node	*b;
+	t_node	*temp;
 
 	flg = 1;
-	b = (*a).next;
-	if (b == NULL)
+	temp = (*a).next;
+	if (temp == NULL)
 		return (1);
 	while ((*a).next)
 	{
-		while (b)
+		while (temp)
 		{
-			if ((*a).n == (*b).n)
+			if ((*a).n == (*temp).n)
 				return (-1);
-			else if ((*a).n > (*b).n)
+			else if ((*a).n > (*temp).n)
 				flg = 0;
-			b = (*b).next;
+			temp = (*temp).next;
 		}
 		a = (*a).next;
 		if (a)
-			b = (*a).next;
+			temp = (*a).next;
 	}
 	return (flg);
 }

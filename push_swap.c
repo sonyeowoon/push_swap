@@ -53,7 +53,12 @@ void	push_swap(t_node *a)
 	if (d == 1)
 		stack_free(a);
 	if (d == 0)
-		ft_sorting(a, b);
+	{
+		if (chk_ascending(a))
+			min_to_top(&a, ft_lstsize(a));
+		else
+			ft_sorting(a, b);
+	}
 	/*
 	int	d;
 	t_node	*b;

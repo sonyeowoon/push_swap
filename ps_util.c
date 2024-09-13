@@ -100,7 +100,47 @@ void	min_to_top(t_node **lst, int size, int *max_idx, int *max_top)
 		}
 	}
 }
+*/
+int	find_min_node(t_node *lst)
+{
+	int	min;
+	int	i;
+	int	min_idx;
 
+	i = 0;
+	min_idx = 0;
+	min = (*lst).n;
+	lst = (*lst).next;
+	while (lst)
+	{
+		i++;
+		if (min > (*lst).n)
+		{
+			min = (*lst).n;
+			min_idx = i;
+		}
+		lst = (*lst).next;
+	}
+	return (min_idx);
+}
+
+void	min_to_top(t_node **lst, int size)
+{
+	int	min_idx;
+
+	min_idx = find_min_node(*lst);
+	if (min_idx <= (size / 2))
+	{
+		while (min_idx--)
+			ft_rotate("ra", lst);
+	}
+	else
+	{
+		while (size - min_idx++)
+			ft_reverse_rotate("rra", lst);
+	}
+}
+/*
 int	find_max_node(t_node *lst)
 {
 	int	this_idx;

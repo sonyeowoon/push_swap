@@ -107,23 +107,40 @@ void	ft_sorting(t_node *a, t_node *b)
 		ft_push("pa", &b, &a);
 }
 */
+static void	mini_sort(t_node **a, int a_size)
+{
+	if (a_size == 3 && !(chk_ascending(*a)))
+		ft_swap("sa", a);
+	min_to_top(a, a_size);
+}
 
-static void    pb_pivot(t_node **a, t_node **b)
+static void	pb_pivot(t_node **a, t_node **b)
 {
     int pivot[4];
-    int i;
 
-    i = 0;
     find_pivot(a, pivot);
 	divide_pivot(a, b, pivot);
 }
 
+void	pa_all(t_node **a, t_node**b, int *a_size)
+{
+	int	*b_size;
+
+	*b_size = ft_lstsize(*b);
+	get_paidx(*a, *b, *a_size, *b_size);
+}
+
 void	ft_sorting(t_node *a, t_node *b)
 {
-	if (!(chk_ascending(a)))
-	{
-		pb_pivot(&a, &b);
-	}
+	int	a_size;
+
+	pb_pivot(&a, &b);
+	a_size = ft_lstsize(a);
+	if (a_size <= 3)
+		mini_sort(&a, a_size);
+	pa_all(&a, &b, &a_size);
+	// min_to_top(&a, ft_lstsize(a));
+	
 	ft_printf("----------");
 	ft_printf("A stack\n");
 	while (a)

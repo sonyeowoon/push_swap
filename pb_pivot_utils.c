@@ -13,61 +13,60 @@ void    find_pivot(t_node **a, int pivot[4])
     pivot[3] = get_max(*a);
     pivot[3] = find_median(*a, 1, pivot[2], pivot[3]);
     pivot[2] = find_median(*a, 1, pivot[2], pivot[3]);
-    pivot[3] = find_median(pivot[3], find_median(*a, 1, pivot[3], get_max(*a)));
+    pivot[3] = find_median(*a, 1, pivot[3], find_median(*a, 1, pivot[3], get_max(*a)));
 }
 
-int cnt_b(t_node *b, int an, int r, int cnt, int pivot[4])
+void    divide_pb_inner(t_node **a, t_node **b, int pivot[4], int *a_size)
 {
-    int i;
-    int top;
-    int bot;
-
-    i = 0;
-    while (i < 4)
-    {
-        if (an <= pivot[i])
-            break;
-        i++;
-    }
-    get_topbot(b, i, pivot, &top, &bot);
-}
-
-int get_moveidx(t_node *a, t_node *b, int pivot[4], int a_size, int b_size)
-{
-    int idx;
-    int i;
     int cnt;
-    int min_cnt;
-    int r;
 
-    i = 0;
-    while (a)
+    cnt = *a_size;
+    while (cnt != 0 && !(chk_ascending(*a)))
     {
-        cnt = i;
-        r = 1;
-        if (cnt > a_size - cnt)
-            (r = -1), (cnt = a_size - cnt);
-        cnt += cnt_b(b, a->n, r, cnt, pivot);
-        if (cnt < min_cnt)
+        if ((**a).n <= pivot[0] || ((**a).n > pivot[2] && (**a).n <= pivot[3]))
         {
-            min_cnt = cnt;
-            idx = i;
+            ft_push("pb", a, b);
+            (*a_size)--;
+            if ((**b).n <= pivot[0])
+                ft_rotate("rb", b);
         }
-        a = a->next;
-        i++;
+        else
+            ft_rotate("ra", a);
+        cnt--;
     }
-    return (idx);
+}
+
+void    divide_pb(t_node **a, t_node **b, int pivot[4], int *a_size)
+{
+    int cnt;
+
+    cnt = *a_size;
+    while (cnt != 0 && !(chk_ascending(*a)))
+    {
+        if ((**a).n > pivot[0] && (**a).n <= pivot[2])
+        {
+            ft_push("pb", a, b);
+            (*a_size)--;
+            if ((**b).n <= pivot[1])
+                ft_rotate("rb", b);
+        }
+        else
+            ft_rotate("ra", a);
+        cnt--;
+    }
+    divide_pb_inner(a, b, pivot, a_size);
 }
 
 void    divide_pivot(t_node **a, t_node**b, int pivot[4])
 {
     int a_size;
-    int b_size;
 
     a_size = ft_lstsize(*a);
-    b_size = 0;
-    while (a_size > 3)
+    if (a_size >= 10)
+        divide_pb(a, b, pivot, &a_size);
+    while (a_size > 3 && !(chk_ascending(*a)))
     {
-        get_moveidx(*a, *b, pivot, a_size, b_size);
+        ft_push("pb", a, b);
+        a_size--;
     }
 }
