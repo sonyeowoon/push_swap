@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangseo <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:18:17 by sangseo           #+#    #+#             */
-/*   Updated: 2024/09/13 19:31:03 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/09/30 15:13:20 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
+typedef struct s_stackinfo
+{
+	int	a_size;
+	int	b_size;
+	t_node	*a;
+	t_node	*b;
+}	t_stackinfo;
 // typedef struct s_stack
 // {
 // 	int		size;
@@ -52,6 +59,7 @@ void	find_pivot(t_node **a, int pivot[4]);
 void	divide_pivot(t_node **a, t_node**b, int pivot[4]);
 int		find_min_node(t_node *lst);
 void	min_to_top(t_node **lst, int size);
+int		get_paidx(t_node *a, t_node *b, int a_size, int b_size);
 //void	min_to_top(t_node **lst, int size, int *max_idx, int *max_top);
 // int		find_max_node(t_node *lst);
 // int		find_nextmax_node(t_node *a, int max_idx, int max_top);
