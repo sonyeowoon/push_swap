@@ -6,7 +6,7 @@
 /*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:22:23 by sangseo           #+#    #+#             */
-/*   Updated: 2024/11/15 02:22:12 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/15 03:56:12 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,32 @@ int	get_aidx(t_node *a, int bn)
 int	get_min_cnt(int	a_idx, int i, int a_size, int b_size)
 {
 	int	min;
+	int	conv_a;
+	int	conv_b;
+	int	flg;
 
+	flg = 0;
 	if (a_idx >= a_size)
 		a_idx -= a_size;
-	min = 
+	conv_a = a_size - a_idx;
+	conv_b = b_size - i;
+	if (a_idx == i)
+		(min = i), (flg = 1);
+	if ((conv_a == conv_b) && (flg == 0 || ((flg == 1) && (conv_a < min))))
+		(min = conv_a), (flg = 1);
+	if (((a_idx - i) < 0) && (flg == 0 || ((flg == 1) && (i < min))))
+		(min = i), (flg = 1);
+	if (((a_idx - i) > 0) && (flg == 0 || ((flg == 1) && (a_idx < min))))
+		(min = a_idx), (flg = 1);
+	if (((conv_a - conv_b) < 0) && (conv_b < min))
+		min = conv_b;
+	if (((conv_a - conv_b) > 0) && (conv_a < min))
+		min = conv_a;
+	if ((a_idx + conv_b) < min)
+		min = a_idx + conv_b;
+	if ((conv_a + i) < min)
+		min = conv_a + i;
+	return (min);
 }
 
 int	get_paidx(t_node *a, t_node *b, int a_size, int b_size)
@@ -118,6 +140,7 @@ int	get_paidx(t_node *a, t_node *b, int a_size, int b_size)
 	int	tmp;
 
 	i = 0;
+	min_idx = 0;
 	while (b)
 	{
 		a_idx = get_aidx(a, b->n);
