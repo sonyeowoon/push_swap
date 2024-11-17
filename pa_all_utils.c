@@ -6,7 +6,7 @@
 /*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:22:23 by sangseo           #+#    #+#             */
-/*   Updated: 2024/11/15 03:56:12 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/17 16:03:09 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,31 +103,28 @@ int	get_aidx(t_node *a, int bn)
 int	get_min_cnt(int	a_idx, int i, int a_size, int b_size)
 {
 	int	min;
-	int	conv_a;
-	int	conv_b;
 	int	flg;
 
 	flg = 0;
 	if (a_idx >= a_size)
 		a_idx -= a_size;
-	conv_a = a_size - a_idx;
-	conv_b = b_size - i;
 	if (a_idx == i)
 		(min = i), (flg = 1);
-	if ((conv_a == conv_b) && (flg == 0 || ((flg == 1) && (conv_a < min))))
-		(min = conv_a), (flg = 1);
+	if (((a_size - a_idx) == (b_size - i)) && (flg == 0 ||
+		((flg == 1) && ((a_size - a_idx) < min))))
+		(min = (a_size - a_idx)), (flg = 1);
 	if (((a_idx - i) < 0) && (flg == 0 || ((flg == 1) && (i < min))))
 		(min = i), (flg = 1);
 	if (((a_idx - i) > 0) && (flg == 0 || ((flg == 1) && (a_idx < min))))
 		(min = a_idx), (flg = 1);
-	if (((conv_a - conv_b) < 0) && (conv_b < min))
-		min = conv_b;
-	if (((conv_a - conv_b) > 0) && (conv_a < min))
-		min = conv_a;
-	if ((a_idx + conv_b) < min)
-		min = a_idx + conv_b;
-	if ((conv_a + i) < min)
-		min = conv_a + i;
+	if ((((a_size - a_idx) - (b_size - i)) < 0) && ((b_size - i) < min))
+		min = (b_size - i);
+	if ((((a_size - a_idx) - (b_size - i)) > 0) && ((a_size - a_idx) < min))
+		min = (a_size - a_idx);
+	if ((a_idx + (b_size - i)) < min)
+		min = a_idx + (b_size - i);
+	if (((a_size - a_idx) + i) < min)
+		min = (a_size - a_idx) + i;
 	return (min);
 }
 
@@ -153,4 +150,47 @@ int	get_paidx(t_node *a, t_node *b, int a_size, int b_size)
 		b = b->next;
 	}
 	return (min_idx);
+}
+
+int	get_min_flg(int	a_idx, int i, int a_size, int b_size)
+{
+	int	min;
+	int	flg;
+
+	flg = 0;
+	if (a_idx >= a_size)
+		a_idx -= a_size;
+	if (a_idx == i)
+		(min = i), (flg = 1);
+	if (((a_size - a_idx) == (b_size - i)) && (flg == 0 ||
+		((flg == 1) && ((a_size - a_idx) < min))))
+		(min = (a_size - a_idx)), (flg = 2);
+	if (((a_idx - i) < 0) && (flg == 0 || ((flg >= 1) && (i < min))))
+		(min = i), (flg = 3);
+	if (((a_idx - i) > 0) && (flg == 0 || ((flg >= 1) && (a_idx < min))))
+		(min = a_idx), (flg = 4);
+	if ((((a_size - a_idx) - (b_size - i)) < 0) && ((b_size - i) < min))
+		(min = (b_size - i)), (flg = 5);
+	if ((((a_size - a_idx) - (b_size - i)) > 0) && ((a_size - a_idx) < min))
+		(min = (a_size - a_idx)), (flg = 6);
+	if ((a_idx + (b_size - i)) < min)
+		(min = a_idx + (b_size - i)), (flg = 7);
+	if (((a_size - a_idx) + i) < min)
+		(min = (a_size - a_idx) + i), (flg = 8);
+	return (flg);
+}
+
+void	pa_min(t_node **a, t_node **b, int min_idx)
+{
+	t_node	*temp;
+	int	i;
+	int	a_idx;
+	int	flg;
+
+	temp = *b;
+	i = 0;
+	while (i++ < min_idx)
+		temp = temp->next;
+	a_idx = get_aidx(a, temp->n);
+	flg = get_min_flg(a_idx, min_idx, ft_lstsize(*a), ft_lstsize(*b));
 }

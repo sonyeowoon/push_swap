@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sorting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangseo <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 04:12:05 by sangseo           #+#    #+#             */
-/*   Updated: 2024/09/13 19:24:55 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/15 04:13:20 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,15 @@ static void	pb_pivot(t_node **a, t_node **b)
 void	pa_all(t_node **a, t_node**b, int *a_size)
 {
 	int	*b_size;
+	int	min_idx;
 
 	*b_size = ft_lstsize(*b);
-	get_paidx(*a, *b, *a_size, *b_size);
+	while (b)
+	{
+		min_idx = get_paidx(*a, *b, *a_size, *b_size);
+		pa_min(a, b, min_idx);
+		((*a_size)++), ((*b_size)--);
+	}
 }
 
 void	ft_sorting(t_node *a, t_node *b)
