@@ -6,7 +6,7 @@
 /*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:18:17 by sangseo           #+#    #+#             */
-/*   Updated: 2024/09/30 15:13:20 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/17 23:26:23 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ void	divide_pivot(t_node **a, t_node**b, int pivot[4]);
 int		find_min_node(t_node *lst);
 void	min_to_top(t_node **lst, int size);
 int		get_paidx(t_node *a, t_node *b, int a_size, int b_size);
+int		get_aidx(t_node *a, int bn);
+void	pa_min(t_node **a, t_node **b, int min_idx);
+void	pa_flg(t_node **a, t_node **b, int min_idx, int flg);
+int		get_bn(t_node *b, int idx);
+
 //void	min_to_top(t_node **lst, int size, int *max_idx, int *max_top);
 // int		find_max_node(t_node *lst);
 // int		find_nextmax_node(t_node *a, int max_idx, int max_top);

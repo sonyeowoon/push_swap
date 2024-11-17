@@ -6,7 +6,7 @@
 /*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:22:23 by sangseo           #+#    #+#             */
-/*   Updated: 2024/11/17 16:03:09 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/17 20:49:46 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +187,12 @@ void	pa_min(t_node **a, t_node **b, int min_idx)
 	int	a_idx;
 	int	flg;
 
+	temp = (t_node *)malloc(sizeof(t_node));
 	temp = *b;
 	i = 0;
 	while (i++ < min_idx)
 		temp = temp->next;
-	a_idx = get_aidx(a, temp->n);
+	a_idx = get_aidx(*a, temp->n);
 	flg = get_min_flg(a_idx, min_idx, ft_lstsize(*a), ft_lstsize(*b));
+	pa_flg(a, b, min_idx, flg);
 }

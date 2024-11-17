@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ps_util2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangseo <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:17:21 by sangseo           #+#    #+#             */
-/*   Updated: 2024/09/13 19:17:25 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/17 23:26:03 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	get_bn(t_node *b, int idx)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < idx)
+		b = b->next;
+	return (b->n);
+}
 /*
 int	find_nextmax_node(t_node *a, int max_idx, int max_top)
 {
