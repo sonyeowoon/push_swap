@@ -6,7 +6,7 @@
 /*   By: sangseo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:54:34 by sangseo           #+#    #+#             */
-/*   Updated: 2024/11/18 18:33:33 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/18 19:53:03 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	calc_diff(t_node *lst, int median, int min, int max)
 	if ((right - left) >= -1 && (right - left) <= 1)
 		return (0);
 	else if ((min < 0 && max < 0) && (left == 2 && right == 0))
+		return (0);
+	else if ((max - min) <= 1)
 		return (0);
 	else if ((right - left) < -1)
 		return (-1);
