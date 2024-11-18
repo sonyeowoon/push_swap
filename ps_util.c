@@ -6,7 +6,7 @@
 /*   By: sangseo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 19:33:39 by sangseo           #+#    #+#             */
-/*   Updated: 2024/08/14 03:24:16 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/18 15:15:25 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,55 +52,7 @@ int	chk_ascending(t_node *lst)
 	}
 	return (1);
 }
-/*
-int	find_min_node(t_node *lst)
-{
-	int	min;
-	int	i;
-	int	min_idx;
 
-	i = 0;
-	min_idx = 0;
-	min = (*lst).n;
-	lst = (*lst).next;
-	while (lst)
-	{
-		i++;
-		if (min > (*lst).n)
-		{
-			min = (*lst).n;
-			min_idx = i;
-		}
-		lst = (*lst).next;
-	}
-	return (min_idx);
-}
-
-void	min_to_top(t_node **lst, int size, int *max_idx, int *max_top)
-{
-	int	min_idx;
-
-	min_idx = find_min_node(*lst);
-	if (min_idx <= (size / 2))
-	{
-		while (min_idx--)
-		{
-			ft_rotate("ra", lst);
-			(*max_idx)--;
-			(*max_top)--;
-		}
-	}
-	else
-	{
-		while (size - min_idx++)
-		{
-			ft_reverse_rotate("rra", lst);
-			(*max_idx)++;
-			(*max_top)++;
-		}
-	}
-}
-*/
 int	find_min_node(t_node *lst)
 {
 	int	min;
@@ -140,26 +92,3 @@ void	min_to_top(t_node **lst, int size)
 			ft_reverse_rotate("rra", lst);
 	}
 }
-/*
-int	find_max_node(t_node *lst)
-{
-	int	this_idx;
-	int	max;
-	int	max_idx;
-
-	this_idx = 0;
-	max_idx = 0;
-	max = (*lst).n;
-	while (lst)
-	{
-		if (max < (*lst).n)
-		{
-			max = (*lst).n;
-			max_idx = this_idx;
-		}
-		lst = (*lst).next;
-		this_idx++;
-	}
-	return (max_idx);
-}
-*/

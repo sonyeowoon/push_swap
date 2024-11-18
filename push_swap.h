@@ -6,7 +6,7 @@
 /*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:18:17 by sangseo           #+#    #+#             */
-/*   Updated: 2024/11/17 23:26:23 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/18 15:10:29 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
-typedef struct s_stackinfo
-{
-	int	a_size;
-	int	b_size;
-	t_node	*a;
-	t_node	*b;
-}	t_stackinfo;
 // typedef struct s_stack
 // {
 // 	int		size;
@@ -61,9 +54,11 @@ int		find_min_node(t_node *lst);
 void	min_to_top(t_node **lst, int size);
 int		get_paidx(t_node *a, t_node *b, int a_size, int b_size);
 int		get_aidx(t_node *a, int bn);
+void	get_aidx_reset(t_node **a, int bn, int *tmp, int *flg);
 void	pa_min(t_node **a, t_node **b, int min_idx);
 void	pa_flg(t_node **a, t_node **b, int min_idx, int flg);
 int		get_bn(t_node *b, int idx);
+void	insert_minflg(int *min, int m_in, int *flg, int f_in);
 
 //void	min_to_top(t_node **lst, int size, int *max_idx, int *max_top);
 // int		find_max_node(t_node *lst);

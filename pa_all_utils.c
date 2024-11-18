@@ -6,71 +6,12 @@
 /*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:22:23 by sangseo           #+#    #+#             */
-/*   Updated: 2024/11/18 09:45:06 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/18 14:12:32 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// int	cnt_a_inner(int a_size, int a_cnt, int b_cnt, int bn, int i)
-// {
-// 	int	r;
-// 	int	min;
-
-// 	if ((b_cnt != i && a_cnt > (a_size - a_cnt)) || \
-// 		(b_cnt == i && a_cnt <= (a_size - a_cnt)))
-// 	{
-// 	}
-// 	if (a_cnt > (a_size - a_cnt))
-// 	{
-// 		a_cnt = a_size - a_cnt;
-// 		r = -1;
-// 	}
-// }
-
-// int	cnt_a(t_node *a, int bn, int b_cnt, int i, int a_size)
-// {
-// 	int	a_cnt;
-// 	int	flg;
-// 	int	prev;
-// 	int	min;
-
-// 	flg = 0;
-// 	a_cnt = 0;
-// 	while (a)
-// 	{
-// 		if (flg == 0 && bn > a->n)
-// 			flg = 1;
-// 		else if ((flg == 1 && (bn < a->n || prev > a->n)) || \
-// 				(flg == 0 && (prev > a->n && bn < a->n)))
-// 			break ;
-// 		a_cnt++;
-// 		prev = a->n;
-// 		a = a->next;
-// 	}
-// 	a_cnt = cnt_a_inner(a_size, a_cnt, b_cnt, bn, i);
-// }
-
-// int	get_paidx(t_node *a, t_node *b, int a_size, int b_size)
-// {
-// 	int	min;
-// 	int	i;
-// 	int	b_cnt;
-// 	int	a_cnt;
-// 	int	min_idx;
-
-// 	i = 0;
-// 	b_cnt = 0;
-// 	while (b)
-// 	{
-// 		b_cnt = i;
-// 		if (i > (b_size - i))
-// 			b_cnt = b_size - i;
-// 		a_cnt = cnt_a(a, b->n, b_cnt, i, a_size);
-// 		i++;
-// 		b = b->next;
-// 	}
-// }
 int	get_aidx(t_node *a, int bn)
 {
 	int	tmp;
@@ -78,29 +19,29 @@ int	get_aidx(t_node *a, int bn)
 	int	flg;
 
 	flg = 0;
-	if (a->n < bn)
-		(flg = -1), (tmp = a->n), (idx = 1);
-	if (a->n > bn)
-		(flg = 1), (tmp = a->n), (idx = 1);
-	a = a->next;
+	idx = 0;
 	while (a)
 	{
 		if (flg == 1)
 		{
 			if ((a->n) < tmp)
-				(flg = -1), (tmp = a->n);
+			{
+				flg = -1;
+				tmp = a->n;
+			}
 		}
 		if (flg == -1)
 		{
 			if (!(((a->n) < bn) && (a->n >= tmp)))
 				return (idx);
 		}
-		(tmp = a->n), (a = a->next), (idx++);
+		get_aidx_reset(&a, bn, &tmp, &flg);
+		idx++;
 	}
 	return (idx);
 }
 
-int	get_min_cnt(int	a_idx, int i, int a_size, int b_size)
+int	get_min_cnt(int a_idx, int i, int a_size, int b_size)
 {
 	int	min;
 	int	flg;
@@ -109,14 +50,14 @@ int	get_min_cnt(int	a_idx, int i, int a_size, int b_size)
 	if (a_idx >= a_size)
 		a_idx -= a_size;
 	if (a_idx == i)
-		(min = i), (flg = 1);
-	if (((a_size - a_idx) == (b_size - i)) && (flg == 0 ||
+		insert_minflg(&min, i, &flg, 1);
+	if (((a_size - a_idx) == (b_size - i)) && (flg == 0 || \
 		((flg == 1) && ((a_size - a_idx) < min))))
-		(min = (a_size - a_idx)), (flg = 1);
+		insert_minflg(&min, (a_size - a_idx), &flg, 1);
 	if (((a_idx - i) < 0) && (flg == 0 || ((flg == 1) && (i < min))))
-		(min = i), (flg = 1);
+		insert_minflg(&min, i, &flg, 1);
 	if (((a_idx - i) > 0) && (flg == 0 || ((flg == 1) && (a_idx < min))))
-		(min = a_idx), (flg = 1);
+		insert_minflg(&min, a_idx, &flg, 1);
 	if ((((a_size - a_idx) - (b_size - i)) < 0) && ((b_size - i) < min))
 		min = (b_size - i);
 	if ((((a_size - a_idx) - (b_size - i)) > 0) && ((a_size - a_idx) < min))
@@ -145,14 +86,17 @@ int	get_paidx(t_node *a, t_node *b, int a_size, int b_size)
 		if (i == 0)
 			min = tmp;
 		if (tmp < min)
-			(min = tmp), (min_idx = i);
+		{
+			min = tmp;
+			min_idx = i;
+		}
 		i++;
 		b = b->next;
 	}
 	return (min_idx);
 }
 
-int	get_min_flg(int	a_idx, int i, int a_size, int b_size)
+int	get_min_flg(int a_idx, int i, int a_size, int b_size)
 {
 	int	min;
 	int	flg;
@@ -161,31 +105,31 @@ int	get_min_flg(int	a_idx, int i, int a_size, int b_size)
 	if (a_idx >= a_size)
 		a_idx -= a_size;
 	if (a_idx == i)
-		(min = i), (flg = 1);
-	if (((a_size - a_idx) == (b_size - i)) && (flg == 0 ||
+		insert_minflg(&min, i, &flg, 1);
+	if (((a_size - a_idx) == (b_size - i)) && (flg == 0 || \
 		((flg == 1) && ((a_size - a_idx) < min))))
-		(min = (a_size - a_idx)), (flg = 2);
+		insert_minflg(&min, (a_size - a_idx), &flg, 2);
 	if (((a_idx - i) < 0) && (flg == 0 || ((flg >= 1) && (i < min))))
-		(min = i), (flg = 3);
+		insert_minflg(&min, i, &flg, 3);
 	if (((a_idx - i) > 0) && (flg == 0 || ((flg >= 1) && (a_idx < min))))
-		(min = a_idx), (flg = 4);
+		insert_minflg(&min, a_idx, &flg, 4);
 	if ((((a_size - a_idx) - (b_size - i)) < 0) && ((b_size - i) < min))
-		(min = (b_size - i)), (flg = 5);
+		insert_minflg(&min, (b_size - i), &flg, 5);
 	if ((((a_size - a_idx) - (b_size - i)) > 0) && ((a_size - a_idx) < min))
-		(min = (a_size - a_idx)), (flg = 6);
+		insert_minflg(&min, (a_size - a_idx), &flg, 6);
 	if ((a_idx + (b_size - i)) < min)
-		(min = a_idx + (b_size - i)), (flg = 7);
+		insert_minflg(&min, (a_idx + (b_size - i)), &flg, 7);
 	if (((a_size - a_idx) + i) < min)
-		(min = (a_size - a_idx) + i), (flg = 8);
+		insert_minflg(&min, ((a_size - a_idx) + i), &flg, 8);
 	return (flg);
 }
 
 void	pa_min(t_node **a, t_node **b, int min_idx)
 {
 	t_node	*temp;
-	int	i;
-	int	a_idx;
-	int	flg;
+	int		i;
+	int		a_idx;
+	int		flg;
 
 	temp = *b;
 	i = 0;

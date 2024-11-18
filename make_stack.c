@@ -6,7 +6,7 @@
 /*   By: sangseo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:57:56 by sangseo           #+#    #+#             */
-/*   Updated: 2024/08/13 20:16:37 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/18 18:45:19 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,6 @@ static int	chk_int(long long n)
 {
 	if (n == (long long)((int)n))
 		return (1);
-	return (0);
-}
-
-static int	ft_chkspace(char *str)
-{
-	while (*str)
-	{
-		if (ft_isspace(*str))
-			return (1);
-		str++;
-	}
 	return (0);
 }
 

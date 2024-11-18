@@ -6,7 +6,7 @@
 /*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:07:16 by sangseo           #+#    #+#             */
-/*   Updated: 2024/11/18 10:04:23 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/18 16:48:58 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,67 +55,13 @@ void	push_swap(t_node *a)
 	if (d == 0)
 	{
 		if (chk_ascending(a))
+		{
 			min_to_top(&a, ft_lstsize(a));
+			stack_free(a);
+		}
 		else
 			ft_sorting(a, b);
 	}
-	/*
-	int	d;
-	t_node	*b;
-	t_node	*temp;
-
-	b = 0;
-	d = chk_dupnsort(a);
-
-	temp = a;
-	ft_printf("first a stack\n");
-	while (temp)
-	{
-		ft_printf("%d\n", (*temp).n);
-		temp = (*temp).next;
-	}
-	ft_printf("------------\n");
-
-	if (d == 1)
-		ft_printf("sorted\n");
-	else if (d == 0)
-		ft_printf("not sorted\n");
-	else
-		ft_printf("duplicate exists\n");
-	ft_printf("------------\n");
-
-	ft_printf("cmd\n\n");
-	ft_swap("sa", &a);
-	ft_push("pb", &a, &b);
-	ft_swap("sa", &a);
-	ft_push("pb", &a, &b);
-	ft_swap("sb", &b);
-	double_cmd("ss", &a, &b);
-	ft_push("pb", &a, &b);
-	ft_rotate("ra", &a);
-	double_cmd("rr", &a, &b);
-	ft_reverse_rotate("rra", &a);
-	ft_reverse_rotate("rrb", &b);
-	double_cmd("rrr", &a, &b);
-	ft_printf("------------\n");
-
-	ft_printf("stack A\n\n");
-	temp = a;
-	while (temp)
-	{
-		ft_printf("%d\n", (*temp).n);
-		temp = (*temp).next;
-	}
-	ft_printf("\n------------\n");
-	ft_printf("stack B\n\n");
-	temp = b;
-	while (temp)
-	{
-		ft_printf("%d\n", (*temp).n);
-		temp = (*temp).next;
-	}
-	ft_printf("\n------------\n");
-	*/
 }
 
 int	main(int ac, char **av)
@@ -132,61 +78,4 @@ int	main(int ac, char **av)
 		ft_error(a);
 	push_swap(a);
 	return (0);
-	/*
-	int		c;
-	t_node	*a;
-
-	if (ac < 2)
-		return (0);
-	if (chk_arg(av) == 0)
-	{
-		ft_printf("Error\n");
-		return (0);
-	}
-	ft_printf("success\n");
-	a = make_stack(av);
-	if (a == 0)
-	{
-		ft_error(a);
-	}
-	push_swap(a);
-
-	return (0);
-	*/
 }
-/*
-int	main()
-{
-	int	c;
-
-	int argc;
-	char **argv;
-
-	argv = (char **)malloc(sizeof(char *) * 4);
-	argv[0] = (char *)malloc(sizeof(char));
-	argv[1] = (char *)malloc(sizeof(char) * 2);
-	argv[2] = (char *)malloc(sizeof(char) * 2);
-	argv[3] = (char *)malloc(sizeof(char) * 3);
-	argc = 4;
-	argv[0][0] = 0;
-	argv[1][0] = '3';
-	argv[1][1] = 0;
-	argv[2][0] = '2';
-	argv[2][1] = 0;
-	argv[3][0] = '-';
-	argv[3][1] = '1';
-	argv[3][2] = 0;
-
-	c = chk_arg(argc, argv);
-	if (c == -1)
-	{
-		ft_printf("Error\n");
-		return (0);
-	}
-	else if (c == 0)
-		return (0);
-	else
-		ft_printf("success\n");
-	return (0);
-}
-*/

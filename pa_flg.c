@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pa_flg.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sangseo <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/18 14:47:14 by sangseo           #+#    #+#             */
+/*   Updated: 2024/11/18 15:07:33 by sangseo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	all_double(t_node **a, t_node **b, int min_idx, int flg)
@@ -78,28 +90,24 @@ void	only_reverse(t_node **a, t_node **b, int min_idx, int flg)
 void	mix_rotate(t_node **a, t_node **b, int min_idx, int flg)
 {
 	int	a_idx;
-	int	i;
 
-	i = 0;
 	a_idx = get_aidx(*a, get_bn(*b, min_idx));
 	if (a_idx >= ft_lstsize(*a))
 		a_idx -= ft_lstsize(*a);
 	if (flg == 7)
 	{
 		min_idx = ft_lstsize(*b) - min_idx;
-		while (i++ < a_idx)
+		while (a_idx--)
 			ft_rotate("ra", a);
-		i = 0;
-		while (i++ < min_idx)
+		while (min_idx--)
 			ft_reverse_rotate("rrb", b);
 	}
 	if (flg == 8)
 	{
 		a_idx = ft_lstsize(*a) - a_idx;
-		while (i++ < a_idx)
+		while (a_idx--)
 			ft_reverse_rotate("rra", a);
-		i = 0;
-		while (i++ < min_idx)
+		while (min_idx--)
 			ft_rotate("rb", b);
 	}
 	ft_push("pa", b, a);
