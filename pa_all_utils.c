@@ -6,7 +6,7 @@
 /*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:22:23 by sangseo           #+#    #+#             */
-/*   Updated: 2024/11/17 20:49:46 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/18 09:45:06 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,6 @@ void	pa_min(t_node **a, t_node **b, int min_idx)
 	int	a_idx;
 	int	flg;
 
-	temp = (t_node *)malloc(sizeof(t_node));
 	temp = *b;
 	i = 0;
 	while (i++ < min_idx)

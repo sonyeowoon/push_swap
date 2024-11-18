@@ -6,7 +6,7 @@
 /*   By: sangseo <sangseo@student.42gyeongsan.kr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 04:12:05 by sangseo           #+#    #+#             */
-/*   Updated: 2024/11/18 01:08:02 by sangseo          ###   ########.fr       */
+/*   Updated: 2024/11/18 10:04:40 by sangseo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	pa_all(t_node **a, t_node **b, int *a_size)
 		pa_min(a, b, min_idx);
 		((*a_size)++), ((*b_size)--);
 	}
+	free(b_size);
 }
 
 void	ft_sorting(t_node *a, t_node *b)
@@ -147,7 +148,7 @@ void	ft_sorting(t_node *a, t_node *b)
 		mini_sort(&a, a_size);
 	pa_all(&a, &b, &a_size);
 	min_to_top(&a, ft_lstsize(a));
-
+	stack_free(a);
 	// ft_printf("----------");
 	// ft_printf("A stack\n");
 	// while (a)
